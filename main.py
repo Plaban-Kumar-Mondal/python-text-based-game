@@ -12,6 +12,8 @@ player = Humanoid(100, 12)
 def enter_a_room(player, max_enemy_num):
     player_input = ""
     ene_current_hel = 0
+    player_current_hel = player.health
+
     # enemies = list()
     # enemy_count = random.randint(1, max_enemy_num)
     # for i in range(enemy_count):
@@ -31,14 +33,28 @@ def enter_a_room(player, max_enemy_num):
         "(tutorial) Type 'A' to attack. In first turn you will attack then enemy will attack you."
     )
 
-    player_input = input("\nType your action:\n")
     while ene_current_hel > 0:
+        player_input = input("\nType your action:\n")
         if player_input.upper() == "A":
             ene_current_hel = enemy_one.hurt(player.attack_damage)
             print("You hit hard!")
             print(
                 f"Enemy Health: {ene_current_hel}         Player health: {player.current_health}"
             )
+        else:
+            continue
+
+        if ene_current_hel <= 0:
+            print("Good Job you killed your first enemy")
+            return True
+        else:
+            input("\nPress Enter to continue...\n")
+            player.hurt(enemy_one.attack_damage)
+            print("\nenemy hit you\n")
+            print(
+                f"Enemy Health: {ene_current_hel}         Player health: {player.current_health}"
+            )
+        input("\nPress Enter to continue...\n")
 
 
 # Main Game Loop
@@ -59,4 +75,7 @@ You quickly understand that you're in the old castle. But how did you end up her
     )
     input("\nType L to choose left door and R to choose right door\n")
 
-    enter_a_room(player, 3)
+    result_of_room = enter_a_room(player, 3)
+
+    if result_of_room:
+        break
