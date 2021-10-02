@@ -46,6 +46,7 @@ def enter_a_room(player, max_enemy_num):
 
         if ene_current_hel <= 0:
             print("Good Job you killed your first enemy")
+            input("\nPress Enter to continue...\n")
             return True
         else:
             input("\nPress Enter to continue...\n")
